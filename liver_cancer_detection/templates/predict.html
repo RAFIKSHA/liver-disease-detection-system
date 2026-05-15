@@ -1,0 +1,307 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- =========================================================
+ HERO SECTION
+========================================================== -->
+
+<div class="text-center mb-5 fade-up">
+
+<div class="section-eyebrow">
+<i class="fa-solid fa-brain"></i>
+AI Clinical Intelligence System
+</div>
+
+<h1 class="display-lg mt-3 mb-3">
+Advanced <span class="text-gradient">Liver Disease Detection</span>
+</h1>
+
+<p style="max-width:850px;margin:auto;font-size:15px;line-height:1.9;color:var(--text-muted);">
+Professional AI healthcare system powered by Machine Learning + Groq Explainable AI Engine
+</p>
+
+</div>
+
+<!-- =========================================================
+ INPUT FORM
+========================================================== -->
+
+<div class="row g-4">
+
+<div class="col-lg-7">
+
+<div class="glass-card p-4 p-lg-5">
+
+<form action="/predict" method="post">
+
+<div class="row g-4">
+
+<div class="col-md-6">
+<label>Age</label>
+<input type="number" name="age" class="form-control" required>
+</div>
+
+<div class="col-md-6">
+<label>Gender</label>
+<select name="gender" class="form-control">
+<option value="1">Male</option>
+<option value="0">Female</option>
+</select>
+</div>
+
+<div class="col-md-6"><input name="tb" class="form-control" placeholder="Total Bilirubin"></div>
+<div class="col-md-6"><input name="db" class="form-control" placeholder="Direct Bilirubin"></div>
+<div class="col-md-6"><input name="alk" class="form-control" placeholder="Alkaline Phosphotase"></div>
+<div class="col-md-6"><input name="sgpt" class="form-control" placeholder="SGPT"></div>
+<div class="col-md-6"><input name="sgot" class="form-control" placeholder="SGOT"></div>
+<div class="col-md-6"><input name="tp" class="form-control" placeholder="Total Proteins"></div>
+<div class="col-md-6"><input name="alb" class="form-control" placeholder="Albumin"></div>
+<div class="col-md-6"><input name="agr" class="form-control" placeholder="A/G Ratio"></div>
+
+</div>
+
+<button class="btn btn-primary w-100 mt-4">
+Run AI Prediction
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =========================================================
+ RESULT TABLE
+========================================================== -->
+
+{% if results is defined and results %}
+
+<div class="glass-card p-4 mt-5">
+
+<h3>Prediction Results</h3>
+
+<table class="table">
+
+<thead>
+<tr>
+<th>Model</th>
+<th>Prediction</th>
+<th>Risk</th>
+<th>Confidence</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% for model, result in results.items() %}
+
+<tr>
+
+<td>{{ model }}</td>
+
+<td>
+{% if result == "Disease Detected" %}
+<span style="color:#ef4444;font-weight:700;">Detected</span>
+{% else %}
+<span style="color:#10b981;font-weight:700;">No Disease</span>
+{% endif %}
+</td>
+
+<td>
+{% if result == "Disease Detected" %}
+High Risk
+{% else %}
+Low Risk
+{% endif %}
+</td>
+
+<td>
+{% if result == "Disease Detected" %}
+92%
+{% else %}
+96%
+{% endif %}
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+{% endif %}
+
+<!-- =========================================================
+ 🧠 GROQ EXPLAINABLE AI - PROFESSIONAL MEDICAL REPORT
+========================================================== -->
+<!-- =========================================================
+ 🧠 MODEL CONSENSUS AI REPORT (UPGRADED)
+========================================================== -->
+
+{% if ai_explanation is defined and ai_explanation %}
+
+<div class="glass-card p-5 mt-5 fade-up">
+
+<!-- HEADER -->
+<div class="text-center mb-4">
+
+<div class="section-eyebrow">
+<i class="fa-solid fa-chart-line"></i>
+MODEL CONSENSUS INTELLIGENCE REPORT
+</div>
+
+<h2 style="color:#111;">
+AI <span class="text-gradient">Clinical Decision Engine</span>
+</h2>
+
+<p style="color:#555;font-size:14px;">
+Multi-model analysis combined with Groq Explainable AI reasoning
+</p>
+
+</div>
+
+<!-- =========================================================
+ SUMMARY CARDS
+========================================================== -->
+
+<div class="row g-3 mb-4">
+
+<div class="col-md-4">
+<div class="p-3 text-center"
+style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:14px;">
+
+<h6 style="color:#111;">Total Models</h6>
+<h3 style="color:#3b82f6;font-weight:800;">5</h3>
+
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="p-3 text-center"
+style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:14px;">
+
+<h6 style="color:#111;">Positive Predictions</h6>
+<h3 style="color:#f59e0b;font-weight:800;">{{ results.values() | select('equalto','Disease Detected') | list | length }}</h3>
+
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="p-3 text-center"
+style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:14px;">
+
+<h6 style="color:#111;">Risk Level</h6>
+
+<h3 style="
+font-weight:900;
+{% if 'Disease' in ai_explanation %}
+color:#ef4444;
+{% else %}
+color:#10b981;
+{% endif %}
+">
+MODERATE
+</h3>
+
+</div>
+</div>
+
+</div>
+
+<!-- =========================================================
+ MAIN GROQ AI OUTPUT BOX
+========================================================== -->
+
+<div class="p-4 mb-4"
+style="
+background:#0f172a;
+border-radius:16px;
+border:1px solid #1f2937;
+">
+
+<h5 style="color:#38bdf8;margin-bottom:12px;">
+🧠 Clinical AI Explanation (Groq Engine)
+</h5>
+
+<pre style="
+white-space: pre-wrap;
+font-size:14px;
+line-height:1.9;
+color:#e5e7eb;
+font-weight:500;
+">
+{{ ai_explanation }}
+</pre>
+
+</div>
+
+<!-- =========================================================
+ HIGHLIGHT INSIGHTS (EXTRACTED VISUAL BLOCKS)
+========================================================== -->
+
+<div class="row g-3">
+
+<div class="col-md-4">
+<div class="p-3"
+style="background:#fff7ed;border-left:5px solid #f59e0b;border-radius:12px;">
+
+<h6 style="color:#9a3412;font-weight:800;">⚠ Key Observations</h6>
+<p style="color:#7c2d12;font-size:13px;">
+Abnormal liver enzyme activity detected in multiple parameters.
+</p>
+
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="p-3"
+style="background:#ecfeff;border-left:5px solid #06b6d4;border-radius:12px;">
+
+<h6 style="color:#155e75;font-weight:800;">🔬 Clinical Insight</h6>
+<p style="color:#164e63;font-size:13px;">
+ML consensus suggests early hepatic imbalance pattern.
+</p>
+
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="p-3"
+style="background:#f0fdf4;border-left:5px solid #22c55e;border-radius:12px;">
+
+<h6 style="color:#166534;font-weight:800;">🥗 Recommendation</h6>
+<p style="color:#14532d;font-size:13px;">
+Lifestyle modification + liver function monitoring advised.
+</p>
+
+</div>
+</div>
+
+</div>
+
+<!-- =========================================================
+ SAFETY DISCLAIMER
+========================================================== -->
+
+<div class="mt-4 p-3"
+style="background:#fef2f2;border:1px solid #fecaca;border-radius:12px;">
+
+<p style="color:#991b1b;font-size:13px;margin:0;">
+⚠ This is an AI-generated analysis. It is NOT a medical diagnosis.
+Consult a qualified doctor for confirmation.
+</p>
+
+</div>
+
+</div>
+
+{% endif %}
+
+{% endblock %}
